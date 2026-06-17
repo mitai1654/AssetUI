@@ -1,5 +1,4 @@
-import { Header } from "@/components/iams/Header"
-import { Sidebar } from "@/components/iams/Sidebar"
+import { IamsShell } from "@/components/iams/IamsShell"
 import { MenuSection } from "@/components/iams/MenuSection"
 import { Search, Server, Package, Cloud, Cpu, User, Users, ArrowUpDown, FileOutput } from "lucide-react"
 
@@ -52,12 +51,12 @@ function LedgerDecoration() {
 }
 
 const infoAssetItems = [
-  { label: "物理的資産", icon: Server },
-  { label: "製品・サービス", icon: Package },
-  { label: "情報・データ", icon: Cloud },
-  { label: "設備", icon: Cpu },
-  { label: "個人情報", icon: User },
-  { label: "人的資産", icon: Users },
+  { label: "物理的資産", icon: Server, href: "/assets/physical" },
+  { label: "製品・サービス", icon: Package, href: "/assets/product-service" },
+  { label: "情報・データ", icon: Cloud, href: "/assets/information-data" },
+  { label: "設備", icon: Cpu, href: "/assets/facility" },
+  { label: "個人情報", icon: User, href: "/assets/personal-info" },
+  { label: "人的資産", icon: Users, href: "/assets/human-asset" },
 ]
 
 const exportImportItems = [
@@ -75,15 +74,7 @@ const ledgerItems = [
 
 export default function Page() {
   return (
-    <div className="min-h-screen flex" style={{ backgroundColor: "#8fa8b4" }}>
-      {/* Left Sidebar */}
-      <Sidebar />
-
-      {/* Right: header + content */}
-      <div className="flex flex-col flex-1 min-w-0">
-        <Header />
-
-        <main className="flex-1 px-6 py-4">
+    <IamsShell>
           {/* Search row */}
         <div className="flex items-center gap-3 mb-4">
           <input
@@ -123,7 +114,7 @@ export default function Page() {
         {/* Menu sections */}
         <div className="flex flex-col gap-5 max-w-5xl">
           <MenuSection
-            title="情報資産管理"
+            title="出力・管理"
             headerColor="#d9604a"
             items={infoAssetItems}
             decorationIcon={<DotsDecoration />}
@@ -143,8 +134,6 @@ export default function Page() {
             decorationIcon={<LedgerDecoration />}
           />
         </div>
-        </main>
-      </div>
-    </div>
+    </IamsShell>
   )
 }

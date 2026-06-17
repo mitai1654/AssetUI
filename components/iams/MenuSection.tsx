@@ -1,8 +1,10 @@
 import type { LucideIcon } from "lucide-react"
+import Link from "next/link"
 
 export interface MenuItem {
   label: string
   icon: LucideIcon
+  href?: string
 }
 
 interface MenuSectionProps {
@@ -34,19 +36,32 @@ export function MenuSection({
         <div className="grid grid-cols-4 gap-3">
           {items.map((item, idx) => {
             const Icon = item.icon
-            return (
-              <button
-                key={idx}
-                className="flex items-center gap-2 px-3 py-3 rounded text-sm font-medium transition-all hover:shadow-md hover:scale-[1.02] active:scale-[0.98] text-left"
-                style={{
-                  backgroundColor: "#ffffff",
-                  color: "#3d5166",
-                  border: "1px solid #c8d8e0",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-                }}
-              >
+            const baseClass =
+              "flex items-center gap-2 px-3 py-3 rounded text-sm font-medium transition-all hover:shadow-md hover:scale-[1.02] active:scale-[0.98] text-left"
+            const baseStyle = {
+              backgroundColor: "#ffffff",
+              color: "#3d5166",
+              border: "1px solid #c8d8e0",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+            }
+            const content = (
+              <>
                 <Icon className="w-5 h-5 flex-shrink-0" style={{ color: "#6a8898" }} />
                 <span className="text-balance leading-tight">{item.label}</span>
+              </>
+            )
+            return item.href ? (
+              <Link
+                key={idx}
+                href={item.href}
+                className={baseClass}
+                style={baseStyle}
+              >
+                {content}
+              </Link>
+            ) : (
+              <button key={idx} className={baseClass} style={baseStyle}>
+                {content}
               </button>
             )
           })}
